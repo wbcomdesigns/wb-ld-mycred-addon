@@ -41,7 +41,20 @@ function addon_mycred_ld_dependency_check(){
 	}
 	return true;
 }
-
+/**
+* Load Language Domain
+* @since 1.0
+* @version 1.0
+*/
+add_action('plugins_loaded','wb_ld_setup_textdomain');
+function wb_ld_setup_textdomain() {
+  $domain  = 'wb-ld-mycred-addon';
+  $locale  = apply_filters( 'plugin_locale', get_locale(), $domain );
+  //first try to load from wp-content/languages/plugins/ directory
+  load_textdomain( $domain, WP_LANG_DIR . '/plugins/' . $domain . '-' . $locale . '.mo' );
+  //if not load from languages directory of plugin
+  load_plugin_textdomain( 'wb-ld-mycred-addon', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
 /**
  * Register Custom myCRED Hook
  * @since 1.0
@@ -269,13 +282,13 @@ function load_wb_ld_mycred_hook() {
 				 */
 				public function preferences() {
 					$prefs = $this->prefs; ?>
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Course', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Course', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'course_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['course_completed']['creds'] ); ?>" size="8" /></div>
 	        	</li>
 	        </ol>
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'course_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['course_completed']['log'] ); ?>" class="long" /></div>
@@ -283,13 +296,13 @@ function load_wb_ld_mycred_hook() {
 	        	</li>
 	        </ol>
 
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Lesson', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Lesson', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'lesson_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['lesson_completed']['creds'] ); ?>" size="8" /></div>
 	        	</li>
 	        </ol>
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'lesson_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['lesson_completed']['log'] ); ?>" class="long" /></div>
@@ -297,13 +310,13 @@ function load_wb_ld_mycred_hook() {
 	        	</li>
 	        </ol>
 
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Topic', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Topic', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'topic_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['topic_completed']['creds'] ); ?>" size="8" /></div>
 	        	</li>
 	        </ol>
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'topic_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['topic_completed']['log'] ); ?>" class="long" /></div>
@@ -311,13 +324,13 @@ function load_wb_ld_mycred_hook() {
 	        	</li>
 	        </ol>
 
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Quiz', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Quiz', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'quiz_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['quiz_completed']['creds'] ); ?>" size="8" /></div>
 	        	</li>
 	        </ol>
-	        <label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
+	        <label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 	        <ol>
 	        	<li>
 	        		<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'quiz_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['quiz_completed']['log'] ); ?>" class="long" /></div>

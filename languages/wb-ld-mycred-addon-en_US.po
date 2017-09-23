@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WBCOM Learndash MyCred Addon 1.0.0\n"
+"POT-Creation-Date: 2017-09-23 20:33+0530\n"
+"PO-Revision-Date: 2017-09-23 20:33+0530\n"
+"Last-Translator: \n"
+"Language-Team: WBCOMDESIGNS\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wb-ld-mycred.php:27
+msgid "LearnDash LMS"
+msgstr ""
+
+#: wb-ld-mycred.php:27 wb-ld-mycred.php:35
+msgid "plugin is not active. In order to make"
+msgstr ""
+
+#: wb-ld-mycred.php:27 wb-ld-mycred.php:35
+msgid "WBCOM Learndash MyCred Addon"
+msgstr ""
+
+#: wb-ld-mycred.php:27 wb-ld-mycred.php:35
+msgid "plugin work, you need to install and activate"
+msgstr ""
+
+#: wb-ld-mycred.php:27 wb-ld-mycred.php:35
+msgid "first"
+msgstr ""
+
+#: wb-ld-mycred.php:35
+msgid "myCRED"
+msgstr ""
+
+#: wb-ld-mycred.php:67
+msgid "LearnDash"
+msgstr ""
+
+#: wb-ld-mycred.php:68
+msgid "Awards %_plural% for LearnDash actions."
+msgstr ""
+
+#: wb-ld-mycred.php:285
+msgid "Completing a Course"
+msgstr ""
+
+#: wb-ld-mycred.php:291 wb-ld-mycred.php:305 wb-ld-mycred.php:319
+#: wb-ld-mycred.php:333
+msgid "Log Template"
+msgstr ""
+
+#: wb-ld-mycred.php:299
+msgid "Completing a Lesson"
+msgstr ""
+
+#: wb-ld-mycred.php:313
+msgid "Completing a Topic"
+msgstr ""
+
+#: wb-ld-mycred.php:327
+msgid "Completing a Quiz"
+msgstr ""
