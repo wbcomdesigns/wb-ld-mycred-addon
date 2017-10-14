@@ -1,7 +1,7 @@
 <?php
 /**
  *Plugin Name: WBCOM Learndash MyCred Addon
- *Plugin URI: https://wbcomdesigns.com/
+ *Plugin URI: https://wbcomdesigns.com/downloads
  *Description: Plugin Adds Filters of LearnDash for MyCred Points
  *Version: 1.0.0
  *Author: WBCOM DESIGNS
