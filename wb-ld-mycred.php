@@ -156,9 +156,10 @@ function load_wb_ld_mycred_hook() {
 			 * @version 1.1
 			 */
 			public function wb_ld_course_completed( $data ) {
-
 				$course_id = $data['course']->ID;
-
+				
+				$ld_course_meta_point = get_post_meta($course_id,'sfwd-courses_ld_cred_points',true);
+				
 				// Must be logged in
 				if ( ! is_user_logged_in() ) return;
 
@@ -170,6 +171,9 @@ function load_wb_ld_mycred_hook() {
 				// Make sure this is unique event
 				if ( $this->core->has_entry( 'course_completed', $course_id, $user_id ) ) return;
 
+				if($ld_course_meta_point){
+					$this->prefs['course_completed']['creds'] = $ld_course_meta_point;
+				}
 				// Execute
 				$this->core->add_creds(
 					'course_completed',
@@ -190,6 +194,8 @@ function load_wb_ld_mycred_hook() {
 			public function wb_ld_lesson_completed( $data ) {
 				$lesson_id = $data['lesson']->ID;
 
+				$ld_lesson_meta_point = get_post_meta($lesson_id,'sfwd-lessons_ld_cred_points',true);
+
 				// Must be logged in
 				if ( ! is_user_logged_in() ) return;
 
@@ -201,6 +207,9 @@ function load_wb_ld_mycred_hook() {
 				// Make sure this is unique event
 				if ( $this->core->has_entry( 'lesson_completed', $lesson_id, $user_id ) ) return;
 
+				if($ld_lesson_meta_point){
+					$this->prefs['lesson_completed']['creds'] = $ld_lesson_meta_point;
+				}
 				// Execute
 				$this->core->add_creds(
 					'lesson_completed',
@@ -221,6 +230,7 @@ function load_wb_ld_mycred_hook() {
 			public function wb_ld_topic_completed( $data ) {
 
 				$topic_id = $data['topic']->ID;
+				$ld_topic_meta_point = get_post_meta($topic_id,'sfwd-topic_ld_cred_points',true);
 
 				// Must be logged in
 				if ( ! is_user_logged_in() ) return;
@@ -233,6 +243,9 @@ function load_wb_ld_mycred_hook() {
 				// Make sure this is unique event
 				if ( $this->core->has_entry( 'topic_completed', $topic_id, $user_id ) ) return;
 
+				if($ld_topic_meta_point){
+					$this->prefs['topic_completed']['creds'] = $ld_topic_meta_point;
+				}
 				// Execute
 				$this->core->add_creds(
 					'topic_completed',
@@ -251,6 +264,7 @@ function load_wb_ld_mycred_hook() {
 			public function wb_ld_quiz_completed( $data ) {
 
 				$quiz_id = $data['quiz']->ID;
+				$ld_quiz_meta_point = get_post_meta($quiz_id,'sfwd-quiz_ld_cred_points',true);
 
 				// Must be logged in
 				if ( ! is_user_logged_in() ) return;
@@ -263,6 +277,9 @@ function load_wb_ld_mycred_hook() {
 				// Make sure this is unique event
 				if ( $this->core->has_entry( 'quiz_completed', $quiz_id, $user_id ) ) return;
 
+				if($ld_quiz_meta_point){
+					$this->prefs['quiz_completed']['creds'] = $ld_quiz_meta_point;
+				}
 				// Execute
 				$this->core->add_creds(
 					'quiz_completed',
@@ -342,3 +359,83 @@ function load_wb_ld_mycred_hook() {
 		}
 	}
 }
+
+add_action( 'add_meta_boxes', 'wb_ld_cred_points_meta_box' );
+
+/**
+ * Function to add cred points meta box in learndash custom post types.
+ */
+function wb_ld_cred_points_meta_box() {
+	$screens = array( 'sfwd-courses', 'sfwd-lessons', 'sfwd-topic', 'sfwd-quiz' );
+	foreach ( $screens as $screen ) {
+		$post_obj = get_post_type_object( $screen );
+		$label = 'myCRED '.$post_obj->labels->singular_name.' Completion Points';
+
+		add_meta_box(
+			$screen.'wb-ld-cred',
+			$label,
+			'wb_ld_show_cred_points_meta_box',
+			$screen,
+			'side'
+		);
+	}
+}
+
+/**
+ * Callback function to render meta box.
+ */
+function wb_ld_show_cred_points_meta_box( $post ) {
+    
+    wp_nonce_field( 'wb_ld_notice_nonce', 'wb_ld_notice_nonce' );
+
+    $cred_value = get_post_meta( $post->ID, $post->post_type.'_ld_cred_points', true );
+
+    echo '<input style="width:100%" id="ld_cred_points" name="ld_cred_points" value="' . $cred_value . '"></input>';
+}
+
+/**
+ * Save post meta on saving post.
+ *
+ * @param int $post_id
+ */
+function save_ld_cred_points_meta_box_data( $post_id ) {
+
+    // Check if our nonce is set.
+	if ( ! isset( $_POST['wb_ld_notice_nonce'] ) ) {
+		return;
+	}
+
+    // Verify that the nonce is valid.
+	if ( ! wp_verify_nonce( $_POST['wb_ld_notice_nonce'], 'wb_ld_notice_nonce' ) ) {
+		return;
+	}
+
+    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+    // Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	}
+	else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+	if ( ! isset( $_POST['ld_cred_points'] ) ) {
+		return;
+	}
+
+	$ld_cred_points = $_POST['ld_cred_points'];
+	$ld_post_type = get_post_type($post_id);
+
+	update_post_meta( $post_id, $ld_post_type.'_ld_cred_points', $ld_cred_points );
+}
+add_action( 'save_post', 'save_ld_cred_points_meta_box_data' );
