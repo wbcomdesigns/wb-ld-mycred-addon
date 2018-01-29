@@ -139,22 +139,22 @@ function load_wb_ld_mycred_hook() {
 			 */
 			public function run() {
 
-				// Course Completed
+				// Course Completed.
 				if ( $this->prefs['course_completed']['creds'] != 0 ) {
 					add_action( 'learndash_course_completed', array( $this, 'wb_ld_course_completed' ), 10, 1 );
 				}
 
-				// Lesson Completed
+				// Lesson Completed.
 				if ( $this->prefs['lesson_completed']['creds'] != 0 ) {
 					add_action( 'learndash_lesson_completed', array( $this, 'wb_ld_lesson_completed' ), 10, 1 );
 				}
 
-				// Topic Completed
+				// Topic Completed.
 				if ( $this->prefs['topic_completed']['creds'] != 0 ) {
 					add_action( 'learndash_topic_completed', array( $this, 'wb_ld_topic_completed' ), 10, 1 );
 				}
 
-				// Quiz Completed
+				// Quiz Completed.
 				if ( $this->prefs['quiz_completed']['creds'] != 0 ) {
 					add_action( 'learndash_quiz_completed', array( $this, 'wb_ld_quiz_completed' ), 10, 1 );
 				}
@@ -172,19 +172,19 @@ function load_wb_ld_mycred_hook() {
 
 				$ld_course_meta_point = get_post_meta( $course_id, 'sfwd-courses_ld_cred_points', true );
 
-				// Must be logged in
+				// Must be logged in.
 				if ( ! is_user_logged_in() ) {
 					return;
 				}
 
 				$user_id = get_current_user_id();
 
-				// Check if user is excluded
+				// Check if user is excluded.
 				if ( $this->core->exclude_user( $user_id ) ) {
 					return;
 				}
 
-				// Make sure this is unique event
+				// Make sure this is unique event.
 				if ( $this->core->has_entry( 'course_completed', $course_id, $user_id ) ) {
 					return;
 				}
@@ -192,7 +192,7 @@ function load_wb_ld_mycred_hook() {
 				if ( $ld_course_meta_point ) {
 					$this->prefs['course_completed']['creds'] = $ld_course_meta_point;
 				}
-				// Execute
+				// Execute.
 				$this->core->add_creds(
 					'course_completed',
 					$user_id,
@@ -215,19 +215,19 @@ function load_wb_ld_mycred_hook() {
 
 				$ld_lesson_meta_point = get_post_meta( $lesson_id, 'sfwd-lessons_ld_cred_points', true );
 
-				// Must be logged in
+				// Must be logged in.
 				if ( ! is_user_logged_in() ) {
 					return;
 				}
 
 				$user_id = get_current_user_id();
 
-				// Check if user is excluded
+				// Check if user is excluded.
 				if ( $this->core->exclude_user( $user_id ) ) {
 					return;
 				}
 
-				// Make sure this is unique event
+				// Make sure this is unique event.
 				if ( $this->core->has_entry( 'lesson_completed', $lesson_id, $user_id ) ) {
 					return;
 				}
@@ -235,7 +235,7 @@ function load_wb_ld_mycred_hook() {
 				if ( $ld_lesson_meta_point ) {
 					$this->prefs['lesson_completed']['creds'] = $ld_lesson_meta_point;
 				}
-				// Execute
+				// Execute.
 				$this->core->add_creds(
 					'lesson_completed',
 					$user_id,
@@ -258,19 +258,19 @@ function load_wb_ld_mycred_hook() {
 				$topic_id            = $data['topic']->ID;
 				$ld_topic_meta_point = get_post_meta( $topic_id, 'sfwd-topic_ld_cred_points', true );
 
-				// Must be logged in
+				// Must be logged in.
 				if ( ! is_user_logged_in() ) {
 					return;
 				}
 
 				$user_id = get_current_user_id();
 
-				// Check if user is excluded
+				// Check if user is excluded.
 				if ( $this->core->exclude_user( $user_id ) ) {
 					return;
 				}
 
-				// Make sure this is unique event
+				// Make sure this is unique event.
 				if ( $this->core->has_entry( 'topic_completed', $topic_id, $user_id ) ) {
 					return;
 				}
@@ -278,7 +278,7 @@ function load_wb_ld_mycred_hook() {
 				if ( $ld_topic_meta_point ) {
 					$this->prefs['topic_completed']['creds'] = $ld_topic_meta_point;
 				}
-				// Execute
+				// Execute.
 				$this->core->add_creds(
 					'topic_completed',
 					$user_id,
@@ -298,19 +298,19 @@ function load_wb_ld_mycred_hook() {
 				$quiz_id            = $data['quiz']->ID;
 				$ld_quiz_meta_point = get_post_meta( $quiz_id, 'sfwd-quiz_ld_cred_points', true );
 
-				// Must be logged in
+				// Must be logged in.
 				if ( ! is_user_logged_in() ) {
 					return;
 				}
 
 				$user_id = get_current_user_id();
 
-				// Check if user is excluded
+				// Check if user is excluded.
 				if ( $this->core->exclude_user( $user_id ) ) {
 					return;
 				}
 
-				// Make sure this is unique event
+				// Make sure this is unique event.
 				if ( $this->core->has_entry( 'quiz_completed', $quiz_id, $user_id ) ) {
 					return;
 				}
@@ -318,7 +318,7 @@ function load_wb_ld_mycred_hook() {
 				if ( $ld_quiz_meta_point ) {
 					$this->prefs['quiz_completed']['creds'] = $ld_quiz_meta_point;
 				}
-				// Execute
+				// Execute.
 				$this->core->add_creds(
 					'quiz_completed',
 					$user_id,
@@ -338,13 +338,13 @@ function load_wb_ld_mycred_hook() {
 				 */
 			public function preferences() {
 				$prefs = $this->prefs; ?>
-			<label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Course', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>"><?php esc_attr_e( 'Completing a Course', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'course_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'course_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['course_completed']['creds'] ); ?>" size="8" /></div>
 				</li>
 			</ol>
-			<label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>"><?php esc_attr_e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'course_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'course_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['course_completed']['log'] ); ?>" class="long" /></div>
@@ -352,13 +352,13 @@ function load_wb_ld_mycred_hook() {
 				</li>
 			</ol>
 
-			<label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Lesson', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>"><?php esc_attr_e( 'Completing a Lesson', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'lesson_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'lesson_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['lesson_completed']['creds'] ); ?>" size="8" /></div>
 				</li>
 			</ol>
-			<label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>"><?php esc_attr_e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'lesson_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'lesson_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['lesson_completed']['log'] ); ?>" class="long" /></div>
@@ -366,13 +366,13 @@ function load_wb_ld_mycred_hook() {
 				</li>
 			</ol>
 
-			<label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Topic', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>"><?php esc_attr_e( 'Completing a Topic', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'topic_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'topic_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['topic_completed']['creds'] ); ?>" size="8" /></div>
 				</li>
 			</ol>
-			<label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>"><?php esc_attr_e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'topic_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'topic_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['topic_completed']['log'] ); ?>" class="long" /></div>
@@ -380,13 +380,13 @@ function load_wb_ld_mycred_hook() {
 				</li>
 			</ol>
 
-			<label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>"><?php _e( 'Completing a Quiz', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>"><?php esc_attr_e( 'Completing a Quiz', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'quiz_completed' => 'creds' ) ); ?>" id="<?php echo $this->field_id( array( 'quiz_completed' => 'creds' ) ); ?>" value="<?php echo $this->core->number( $prefs['quiz_completed']['creds'] ); ?>" size="8" /></div>
 				</li>
 			</ol>
-			<label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>"><?php _e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
+			<label class="subheader" for="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>"><?php esc_attr_e( 'Log Template', 'wb-ld-mycred-addon' ); ?></label>
 			<ol>
 				<li>
 					<div class="h2"><input type="text" name="<?php echo $this->field_name( array( 'quiz_completed' => 'log' ) ); ?>" id="<?php echo $this->field_id( array( 'quiz_completed' => 'log' ) ); ?>" value="<?php echo esc_attr( $prefs['quiz_completed']['log'] ); ?>" class="long" /></div>
