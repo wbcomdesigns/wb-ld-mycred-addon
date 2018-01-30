@@ -8,8 +8,8 @@
  * Author URI: https://wbcomdesigns.com/
  * Text Domain: wb-ld-mycred-addon
  * Domain Path: /languages.
+ * @package wb-ld-mycred-addon
  */
-
 
  // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -429,7 +429,7 @@ function wb_ld_show_cred_points_meta_box( $post ) {
 
 	$cred_value = get_post_meta( $post->ID, $post->post_type . '_ld_cred_points', true );
 
-	echo '<input style="width:100%" id="ld_cred_points" name="ld_cred_points" value="' . $cred_value . '"></input>';
+	echo '<input style="width:100%" id="ld_cred_points" name="ld_cred_points" value="' . esc_html( $cred_value ) . '"></input>';
 }
 
 /**
